@@ -1,0 +1,756 @@
+:root {
+  --bg-color: #0f1014;
+  --text-color: #e0e6ed;
+  --accent-color: #646cff;
+  --terminal-bg: #0c0c0c;
+  --terminal-green: #33ff00;
+  --terminal-prompt: #00ffcc;
+  --terminal-comment: #6272a4;
+  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.6;
+  color-scheme: dark;
+}
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  overflow: hidden;
+}
+
+#root,
+.app {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+/* Background Canvas */
+.background-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  /* Visible base layer */
+  /* Moved strictly to back */
+  pointer-events: none;
+  /* Let clicks pass through */
+}
+
+/* Slide Container */
+.slide-container {
+  width: 100%;
+  height: 100%;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  /* Fixed: Titles at the top */
+  padding: 4rem 2rem;
+  box-sizing: border-box;
+  transition: opacity 0.5s ease;
+  position: relative;
+
+  z-index: 10;
+  margin: 0 auto;
+}
+
+/* Theory Mode Styling */
+.slide-container.theory {
+  /* Translucent bg to see canvas */
+  background: rgba(15, 16, 20, 0.7);
+  /* More transparent to show blur better */
+  backdrop-filter: blur(15px);
+  /* Stronger blur */
+  -webkit-backdrop-filter: blur(15px);
+  border-radius: 20px;
+  max-height: 90vh;
+  /* Floating card look */
+  margin-top: 5vh;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  /* Subtle border */
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  /* Glass shadow */
+}
+
+.slide-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* Center children horizontally */
+  justify-content: center;
+  text-align: center;
+  /* Center text */
+  width: 100%;
+}
+
+.slide-title {
+  font-size: 3.5rem;
+  margin-top: 2rem;
+  margin-bottom: 4rem;
+  min-height: 4.2rem;
+  /* Ensure consistent spacing for 1-line titles */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(90deg, #fff, #999, #fff);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1.2;
+  text-align: center;
+  animation: shine 5s linear infinite;
+}
+
+@keyframes shine {
+  to {
+    background-position: 200% center;
+  }
+}
+
+.slide-text {
+  font-size: 1.6rem;
+  margin-bottom: 1.5rem;
+  color: #c0c0c0;
+  /* Brighter text for contrast */
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.8;
+}
+
+/* Terminal Mode Styling */
+/* Terminal Mode Styling */
+.slide-container.terminal {
+  /* Match theory/interactive style */
+  background: rgba(15, 16, 20, 0.85);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-radius: 20px;
+  max-height: 90vh;
+  margin-top: 5vh;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+
+  color: var(--text-color);
+  /* Use standard text color for outside terminal */
+  z-index: 10;
+}
+
+.slide-container.terminal .slide-content {
+  align-items: center;
+  text-align: center;
+}
+
+/* But let's keep the title centered in terminal mode if user wants 'headers' centered */
+/* Title consistency: Specific terminal title overrides removed */
+/* .slide-container.terminal .slide-title { } */
+
+.slide-container.terminal .slide-text {
+  color: #ccc;
+  font-family: 'Courier New', monospace;
+  text-align: center;
+  /* Optional: Instructions centered? */
+}
+
+/* Interactive Mode Styling */
+/* Interactive Mode Styling - Now matches Theory/Terminal */
+.slide-container.interactive {
+  /* Standard Glass Card */
+  background: rgba(15, 16, 20, 0.7);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-radius: 20px;
+  max-height: 90vh;
+  margin-top: 5vh;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+
+  /* Layout overrides for interactive content if needed */
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+.demo-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+}
+
+.demo-header {
+  text-align: center;
+}
+
+.demo-header p {
+  color: #8b949e;
+  font-size: 1.2rem;
+}
+
+.areas-grid {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.area {
+  flex: 1;
+  background: rgba(0, 0, 0, 0.2);
+  /* More transparent to blend */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  padding: 1rem;
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+}
+
+.area h4 {
+  margin-top: 0;
+  color: #c9d1d9;
+  border-bottom: 1px solid #21262d;
+  padding-bottom: 0.5rem;
+}
+
+.arrow {
+  font-size: 2rem;
+  color: #58a6ff;
+}
+
+.file-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex-grow: 1;
+}
+
+.file-card {
+  padding: 0.8rem;
+  border-radius: 4px;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.2s;
+  display: flex;
+  justify-content: space-between;
+}
+
+.file-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.file-card.modified {
+  border-left: 4px solid #d29922;
+}
+
+.file-card.staged {
+  border-left: 4px solid #238636;
+}
+
+.file-card.committed {
+  border-left: 4px solid #58a6ff;
+  cursor: default;
+}
+
+.action-hint {
+  font-size: 0.8rem;
+  opacity: 0.6;
+}
+
+.commit-btn {
+  margin-top: 1rem;
+  background-color: #238636;
+  color: white;
+  border: none;
+  font-weight: bold;
+}
+
+.commit-btn:hover {
+  background-color: #2ea043;
+}
+
+.reset-btn {
+  align-self: center;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Branching Demo SVG Container specific style to replace inline styles */
+.svg-container {
+  overflow-x: auto;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  min-height: 250px;
+  margin-top: 1rem;
+}
+
+/* Terminal Window Component */
+.terminal-window {
+  background-color: var(--terminal-bg);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+  margin: 0;
+  box-shadow: none;
+  border: none;
+}
+
+.terminal-header {
+  background-color: #1a1a1a;
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #333;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.dot.red {
+  background-color: #ff5f56;
+  cursor: pointer;
+}
+
+.dot.red:hover {
+  background-color: #ff3b30;
+  box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.4);
+}
+
+.dot.yellow {
+  background-color: #ffbd2e;
+}
+
+.dot.green {
+  background-color: #27c93f;
+}
+
+.title {
+  margin-left: auto;
+  margin-right: auto;
+  color: #666;
+  font-size: 0.8rem;
+}
+
+.terminal-body {
+  padding: 20px;
+  overflow-y: auto;
+  flex-grow: 1;
+}
+
+.terminal-line {
+  margin-bottom: 5px;
+  display: flex;
+}
+
+.prompt {
+  color: var(--terminal-prompt);
+  margin-right: 10px;
+  user-select: none;
+}
+
+.command {
+  color: var(--text-color);
+}
+
+.comment {
+  color: var(--terminal-comment);
+  font-style: italic;
+}
+
+.cursor-block {
+  display: inline-block;
+  width: 10px;
+  height: 1.2em;
+  background-color: var(--terminal-green);
+  animation: blink 1s step-end infinite;
+  vertical-align: text-bottom;
+}
+
+@keyframes blink {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Controls */
+.controls {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  z-index: 100;
+}
+
+button {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+button:hover:not(:disabled) {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.slide-counter {
+  font-feature-settings: "tnum";
+  font-variant-numeric: tabular-nums;
+  color: #666;
+}
+
+.progress-bar-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background-color: rgba(255, 255, 255, 0.1);
+  z-index: 100;
+}
+
+.progress-bar {
+  height: 100%;
+  background-color: var(--accent-color);
+  transition: width 0.3s ease;
+}
+
+
+/* File Icon and Modal Styles */
+.file-icon-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
+  padding: 2rem;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: 2rem;
+}
+
+.file-icon-wrapper:hover {
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  border-color: var(--accent-color);
+}
+
+.file-icon {
+  width: 64px;
+  height: 64px;
+  color: var(--text-color);
+  transition: color 0.3s;
+}
+
+.file-icon-wrapper:hover .file-icon {
+  color: var(--accent-color);
+}
+
+.file-label {
+  font-family: 'Courier New', monospace;
+  font-size: 1.2rem;
+  color: #ccc;
+}
+
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+  position: relative;
+  width: auto;
+  max-width: 95vw;
+  animation: scaleUp 0.3s ease;
+}
+
+.close-modal-btn {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  line-height: 1;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.close-modal-btn:hover {
+  opacity: 1;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleUp {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .slide-container {
+    padding: 1rem;
+    width: 95%;
+  }
+
+  .slide-title {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .slide-text {
+    font-size: 1.1rem;
+    max-width: 100%;
+  }
+
+  .controls {
+    width: 100%;
+    right: 0;
+    justify-content: center;
+    bottom: 1rem;
+    padding: 0 1rem;
+    box-sizing: border-box;
+  }
+
+  .controls button {
+    padding: 0.5rem 0.8rem;
+    font-size: 0.9rem;
+  }
+
+  .terminal-window {
+    width: 100%;
+    height: 60vh;
+    margin-top: 1rem;
+  }
+
+  .areas-grid {
+    flex-direction: column;
+  }
+
+  .area {
+    min-height: auto;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .arrow {
+    transform: rotate(90deg);
+    margin: 0.5rem 0;
+  }
+}
+
+/* Dock Styling */
+.dock-wrapper {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+}
+
+.dock-glass {
+  display: flex;
+  align-items: flex-end;
+  gap: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  padding: 10px 20px;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.dock-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.dock-item:hover {
+  transform: scale(1.1) translateY(-10px);
+}
+
+.dock-item.active .dock-icon-container {
+  transform: translateY(-5px);
+}
+
+.dock-icon-container {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3));
+  transition: all 0.2s;
+}
+
+.dock-icon-container svg {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+}
+
+.dock-tooltip {
+  position: absolute;
+  top: -40px;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+  white-space: nowrap;
+}
+
+.dock-item:hover .dock-tooltip {
+  opacity: 1;
+}
+
+.dock-dot {
+  width: 4px;
+  height: 4px;
+  background-color: var(--accent-color);
+  border-radius: 50%;
+  margin-top: 4px;
+  box-shadow: 0 0 5px var(--accent-color);
+}
+
+/* Folder Icon Style */
+.folder-icon {
+  color: #64b5f6;
+}
+
+/* Terminal Window Overlay & Wrapper */
+.terminal-overlay-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 500;
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.terminal-window-wrapper {
+  pointer-events: auto;
+  position: relative;
+  width: 900px;
+  /* Standard Size */
+  height: 600px;
+  /* Standard Size */
+  max-width: 90vw;
+  max-height: 80vh;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: var(--terminal-bg);
+  animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes popIn {
+  from {
+    transform: scale(0.5) translateY(100px);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+.terminal-window-wrapper.closing {
+  animation: popOut 0.3s cubic-bezier(0.55, 0.085, 0.68, 0.53) forwards;
+}
+
+@keyframes popOut {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  to {
+    transform: scale(0.9) translateY(20px);
+    opacity: 0;
+  }
+}

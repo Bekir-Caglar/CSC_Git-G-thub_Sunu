@@ -1,0 +1,104 @@
+.agenda-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    padding: 4rem 2rem;
+    /* Matches slide-container padding */
+}
+
+.agenda-title {
+    font-size: 3rem;
+    color: var(--highlight-blue);
+    margin-top: 2rem;
+    /* Matches slide-title margin */
+    margin-bottom: 5.5rem;
+    /* Matches slide-title spacing */
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    position: relative;
+    display: inline-block;
+}
+
+.agenda-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 0;
+    height: 4px;
+    background: var(--terminal-green);
+    animation: expandLine 1s ease-out forwards;
+}
+
+@keyframes expandLine {
+    to {
+        width: 100%;
+    }
+}
+
+.agenda-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    width: 90%;
+    max-width: 1200px;
+}
+
+.agenda-item {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 1.2rem;
+    /* Slightly smaller font */
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid #333;
+    border-radius: 8px;
+    opacity: 0;
+    transform: translateY(20px);
+    /* Slide up instead of left */
+    transition: all 0.4s ease-out;
+}
+
+.agenda-item.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.agenda-item:hover {
+    background: rgba(0, 0, 0, 0.7);
+    border-color: var(--terminal-green);
+    transform: scale(1.02) translateY(0);
+    /* Slight zoom */
+    cursor: default;
+    box-shadow: 0 0 15px rgba(51, 255, 0, 0.1);
+}
+
+.agenda-item .bullet {
+    color: var(--terminal-green);
+    font-weight: bold;
+}
+
+
+/* Mobile Responsiveness for Agenda */
+@media (max-width: 768px) {
+    .agenda-title {
+        font-size: 2rem;
+        margin-bottom: 2rem;
+        letter-spacing: 2px;
+    }
+
+    .agenda-list {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        width: 100%;
+    }
+
+    .agenda-item {
+        font-size: 1rem;
+        padding: 0.8rem;
+    }
+}
