@@ -20,13 +20,22 @@ export const participants: Participant[] = [
         github: "Bekir-Caglar"
     },
     {
-        name: "Öylesine Birisi",
-        github: "OylesineBiri-61"
+        name: "Timur Hasret Demir",
+        github: "DemirDevHD"
     },
     {
         name: "Ersel Atay",
         github: "ersel-atay"
     },
+    {
+        name: "Emir Geçit",
+        github: "emirgecit"
+    },
+  {
+            name: "Emre Çiçek",
+        github: "emreciek"
+  }
+
 
     // Kendi isminizi buraya ekleyin 👇
 
