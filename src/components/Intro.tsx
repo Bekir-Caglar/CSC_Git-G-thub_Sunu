@@ -18,13 +18,13 @@ const presenters: Presenter[] = [
     {
         name: "Emre Özen",
         role: "Bilgisayar Bilimleri 3. Sınıf Öğrencisi",
-        github: "https://github.com/EmreOzen",
-        linkedin: "https://linkedin.com/in/EmreOzen"
+        github: "https://github.com/eemreozen",
+        linkedin: "https://www.linkedin.com/in/emre-ozen6/"
     },
     {
         name: "Bekir Çağlar",
         role: "Bilgisayar Bilimleri 3. Sınıf Öğrencisi",
-        github: "https://github.com/bekircaglar",
+        github: "https://github.com/Bekir-Caglar",
         linkedin: "https://linkedin.com/in/bekircaglar"
     }
 ];
@@ -44,6 +44,10 @@ export const Intro: React.FC<IntroProps> = ({ onStart }) => {
 
     return (
         <div className="intro-container">
+            <div className="club-branding">
+                <img src="/logo.jpg" alt="Bilgisayar Bilimleri Kulübü Logo" className="club-logo" />
+                <span className="club-name">Bilgisayar Bilimleri Kulübü</span>
+            </div>
             <div className="glitch-wrapper">
                 <h1 className="glitch" data-text="GIT & GITHUB">GIT & GITHUB</h1>
             </div>

@@ -8,6 +8,7 @@ import { Intro } from './Intro';
 import { Agenda } from './Agenda';
 import { Outro } from './Outro';
 import { Dock } from './Dock';
+import { ShortBreak } from './ShortBreak';
 
 export const SlideViewer: React.FC = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -180,14 +181,19 @@ export const SlideViewer: React.FC = () => {
                         <div className="slide-content">
                             <h1
                                 className="slide-title"
-                                style={slide.id === 13 ? { fontSize: '2.5rem' } : {}}
                             >
                                 {slide.title}
                             </h1>
 
                             <div className="slide-body">
                                 {slide.content.map((text, idx) => (
-                                    <p key={idx} className="slide-text">{text}</p>
+                                    <p
+                                        key={idx}
+                                        className="slide-text"
+                                        style={slide.id === 24 ? { fontSize: '1.1rem' } : {}}
+                                    >
+                                        {text}
+                                    </p>
                                 ))}
                             </div>
 
@@ -197,6 +203,10 @@ export const SlideViewer: React.FC = () => {
 
                             {slide.type === 'interactive' && slide.component === 'BranchingDemo' && (
                                 <BranchingDemo />
+                            )}
+
+                            {slide.type === 'interactive' && slide.component === 'ShortBreak' && (
+                                <ShortBreak />
                             )}
                         </div>
                     </>

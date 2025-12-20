@@ -99,7 +99,7 @@ html {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(90deg, #fff, #999, #fff);
+  background: linear-gradient(90deg, #4ade80, #22c55e, #4ade80);
   background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;
@@ -119,7 +119,7 @@ html {
   font-size: 1.6rem;
   margin-bottom: 1.5rem;
   color: #c0c0c0;
-  /* Brighter text for contrast */
+  font-family: 'Consolas', monospace;
   max-width: 900px;
   margin-left: auto;
   margin-right: auto;
@@ -155,7 +155,7 @@ html {
 
 .slide-container.terminal .slide-text {
   color: #ccc;
-  font-family: 'Courier New', monospace;
+  font-family: 'Consolas', monospace;
   text-align: center;
   /* Optional: Instructions centered? */
 }

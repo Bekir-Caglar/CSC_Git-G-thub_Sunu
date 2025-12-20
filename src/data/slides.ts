@@ -32,22 +32,22 @@ export const slides: Slide[] = [
     // ==========================================
     {
         id: 1,
-        title: "1. Versiyon Kontrolü Nedir?",
+        title: "1. Versiyon Kontrol Sistemi (VCS)",
         type: 'theory',
         content: [
-            "• Projenizin 'Zaman Makinesi'dir. Geçmişe dönmenizi sağlar.",
-            "• 'Save Point' (Kayıt Noktası) mantığıyla çalışır.",
-            "• Kim, ne zaman, hangi dosyada, ne değişiklik yaptı? Sorularına cevap verir."
+            "• Projenizi zamana karşı koruyan bir 'Zaman Makinesi'dir. Hata yaptığınızda güvenle geri alabilirsiniz.",
+            "• Sadece kod yedeklemek değil; 'Kim, Ne Zaman, Neden' değişiklik yaptı sorularının cevabıdır.",
+            "• Ekip çalışmasının kalbidir: Aynı dosya üzerinde aynı anda çakışmadan çalışmayı sağlar."
         ]
     },
     {
         id: 2,
-        title: "2. Neden Git?",
+        title: "2. Neden Git Kullanmalıyız?",
         type: 'theory',
         content: [
-            "• Dağıtık Yapı: İnternet olmasa bile tam tarihçe ile çalışabilirsiniz.",
-            "• Hız & Performans: Dosyaların kopyasını değil, değişimlerin (snapshot) izini tutar.",
-            "• Standart: Yazılım dünyasının %90'ı tarafından kullanılır (Linux, Microsoft, Google vb.)."
+            "• Dağıtık Yapı (Distributed): İnternet kesilse bile projenin tam tarihçesi bilgisayarınızda olur.",
+            "• Snapshot (Anlık Durum) Mantığı: Git, dosyalar arasındaki küçük değişiklikleri hesaplamak yerine, her kayıt noktasında projenin o anki bütünsel bir kopyasını (paketini) oluşturur. Dosyaların son haline doğrudan ulaşılabildiği için çok hızlı çalışır.",
+            "• Endüstri Standardı: Linux, Android, Google, Microsoft ve dünyadaki geliştiricilerin %95'i Git kullanır."
         ]
     },
 
@@ -56,38 +56,43 @@ export const slides: Slide[] = [
     // ==========================================
     {
         id: 3,
-        title: "3. Kurulum ve Kimlik (Config)",
+        title: "3. Kimlik Doğrulama (Config)",
         type: 'terminal',
         content: [
-            "Git'e kendimizi bir kez tanıtmamız gerekir. Bu bilgiler commit'lerde görünür."
+            "Git kurulumundan sonra yapılması gereken İLK işlem kimliğinizi tanıtmaktır.",
+            "Bu bilgiler her commit işleminde 'Yazar (Author)' olarak görünecektir."
         ],
         codeLines: [
-            "# Kullanıcı adı ve e-posta tanımlama",
-            "git config --global user.name \"Ad Soyad\"",
-            "git config --global user.email \"email@ornek.com\"",
+            "# 1. Kullanıcı Adınızı Tanımlayın",
+            "git config --global user.name \"Adınız Soyadınız\"",
             "",
-            "# Ayarları kontrol etme",
+            "# 2. E-posta Adresinizi Tanımlayın",
+            "git config --global user.email \"email@adresiniz.com\"",
+            "",
+            "# 3. Ayarları Kontrol Edin",
             "git config --list"
         ],
-        fileName: "setup.sh"
+        fileName: "config.sh"
     },
     {
         id: 4,
         title: "4. Proje Başlatma (Init & Clone)",
         type: 'terminal',
         content: [
-            "Sıfırdan proje başlatabilir veya mevcut bir projeyi indirebilirsiniz."
+            "Bir projeyi Git ile takibe almak için iki yöntem vardır:",
+            "Ya sıfırdan 'init' ile başlatırsınız ya da var olanı 'clone' ile indirirsiniz."
         ],
         codeLines: [
-            "# Yöntem 1: Sıfırdan Başlama",
-            "mkdir yeni_proje",
-            "cd yeni_proje",
-            "git init  # .git klasörünü oluşturur",
+            "# Senaryo A: Yeni Bir Projeye Başlamak",
+            "mkdir projem",
+            "cd projem",
+            "git init      # .git klasörü oluşturulur ve takip başlar",
             "",
-            "# Yöntem 2: Mevcut Projeyi İndirme",
-            "git clone https://github.com/kullanici/proje.git"
+            "# Senaryo B: GitHub'dan Proje İndirmek",
+            "git clone https://github.com/kullanici/repo.git",
+            "# (Tüm tarihçe ve dosyalar bilgisayarınıza iner)"
         ],
-        fileName: "init.sh"
+        fileName: "start.sh"
     },
 
     // ==========================================
@@ -95,60 +100,64 @@ export const slides: Slide[] = [
     // ==========================================
     {
         id: 5,
-        title: "5. Temel Döngü: Add & Commit",
+        title: "5. Git Yaşam Döngüsü: 3 Bölge",
         type: 'terminal',
         content: [
-            "Working Dir -> Staging Area -> Repository"
+            "Git'te dosyalar 3 aşamadan geçer:",
+            "1. Working Dir (Çalışma Masası) -> 2. Staging Area (Kargo Kutusu) -> 3. Repository (Kargo Aracı)"
         ],
         codeLines: [
-            "# 1. Durumu gör",
+            "# 1. Durumu Kontrol Et (Kırmızı: Takip edilmeyenler)",
             "git status",
             "",
-            "# 2. Sahneye (Staging Area) al",
-            "git add dosya.txt",
-            "git add .         # Tüm değişiklikleri ekle",
+            "# 2. Sahneye Al (Koliye Koy)",
+            "git add dosya.txt   # Tek dosya",
+            "git add .           # Her şeyi ekle",
             "",
-            "# 3. Onayla ve Kaydet (Commit)",
-            "git commit -m \"İlk özellik eklendi\""
+            "# 3. Onayla ve Kaydet (Kargoya Ver)",
+            "git commit -m \"Login sayfası eklendi\""
         ],
-        fileName: "basic_cycle.sh"
+        fileName: "workflow.sh"
     },
     {
         id: 6,
-        title: "Staging Area Mantığı",
+        title: "Görselleştirme: Staging Area",
         type: 'interactive',
         content: [
-            "Dosyaların Working Directory'den Staging Area'ya ve oradan Repository'ye geçişini deneyimleyin."
+            "Soldaki dosyaları seçip (add) sağ tarafa (commit) göndererek yaşam döngüsünü deneyimleyin."
         ],
         component: "StagingDemo"
     },
     {
         id: 7,
-        title: "6. Geçmişe Bakış (Log)",
+        title: "6. Geçmişe Yolculuk (Log)",
         type: 'terminal',
         content: [
-            "Neler yapıldığını incelemek için."
+            "Projede bugüne kadar kimlerin ne yaptığını görmek için log komutları kullanılır."
         ],
         codeLines: [
-            "# Tüm geçmişi listele",
+            "# Detaylı Tarihçe (Yazar, tarih, mesaj)",
             "git log",
             "",
-            "# Tek satırda özet gör",
+            "# Özet Görünüm (Sadece ID ve mesaj)",
             "git log --oneline",
             "",
-            "# Detaylı değişiklikleri gör",
-            "git log -p"
+            "# Son 3 Değişikliği Göster",
+            "git log -n 3",
+            "",
+            "# Grafiksel Ağaç Yapısı",
+            "git log --graph --oneline --all"
         ],
-        fileName: "log_history.sh"
+        fileName: "history.sh"
     },
     {
         id: 8,
-        title: "7. Görmezden Gelme (.gitignore)",
+        title: "7. Gizli Dosyalar (.gitignore)",
         type: 'theory',
         content: [
-            "• Her dosyayı Git'e atmamalıyız (örn: şifreler, derlenmiş dosyalar, node_modules).",
-            "• '.gitignore' dosyasına yazılanlar Git tarafından YOK SAYILIR.",
-            "• Genellikle proje başında bir kez ayarlanır."
+            "• Her dosyayı sunucuya göndermek istemeyiz (Şifreler, API Keyler, 500MB'lık node_modules).",
+            "• Projenin köküne `.gitignore` adlı bir dosya açıp, içine istemediğimiz dosya isimlerini yazarız.",
+            "• Git bu dosyaları YOK SAYAR ve takip etmez."
         ]
     },
 
@@ -157,45 +166,47 @@ export const slides: Slide[] = [
     // ==========================================
     {
         id: 9,
-        title: "8. Dallanma (Branching) Nedir?",
+        title: "8. Dallanma (Branching) Mantığı",
         type: 'theory',
         content: [
-            "• Ana kod (main) bozulmadan yeni özellikler geliştirmek için kullanılır.",
-            "• Paralel evrenler gibidir: Bir tarafta 'Login' sayfası yaparken, diğer tarafta 'Bug' düzeltebilirsiniz.",
-            "• İş bitince ana dal ile birleştirilir (Merge)."
+            "• Ana proje (main) bozulmasın diye kopyasını alıp orada çalışmaktır.",
+            "• Paralel Evrenler: Bir branch'te 'Login' yaparken diğerinde 'Ödeme Sistemi' yapabilirsiniz.",
+            "• İki iş birbirini etkilemez. İş bitince ana projeye (main) birleştirilir (Merge)."
         ]
     },
     {
         id: 10,
-        title: "9. Branch & Merge",
+        title: "İnteraktif Demo: Branch & Merge",
         type: 'interactive',
         content: [
-            "Branch oluşturma ve birleştirme (merge) işlemini görselleştirin."
+            "Aşağıdaki butona basarak yeni bir dal oluşturun, commit atın ve main'e bağlayın."
         ],
         component: "BranchingDemo"
     },
     {
         id: 11,
-        title: "10. Branch Komutları",
+        title: "9. Branch Komutları",
         type: 'terminal',
         content: [
-            "Dalları yönetmek için temel komutlar."
+            "Dallar arası geçiş ve yönetim komutları."
         ],
         codeLines: [
-            "# Yeni dal oluştur",
-            "git branch yeni-ozellik",
+            "# Mevcut dalları listele",
+            "git branch",
             "",
-            "# Dala geçiş yap (Checkout)",
-            "git checkout yeni-ozellik",
+            "# Yeni özellik için dal oluştur ve geç",
+            "git checkout -b yeni-ozellik",
             "",
-            "# (Kısa yol) Oluştur ve geç",
-            "git checkout -b hizli-ozellik",
-            "",
-            "# Ana dala birleştir (Merge)",
+            "# Ana dala geri dön",
             "git checkout main",
-            "git merge yeni-ozellik"
+            "",
+            "# Özelliği ana projeye dahil et (Merge)",
+            "git merge yeni-ozellik",
+            "",
+            "# İşi biten dalı sil",
+            "git branch -d yeni-ozellik"
         ],
-        fileName: "branching.sh"
+        fileName: "branch_ops.sh"
     },
 
     // ==========================================
@@ -203,41 +214,42 @@ export const slides: Slide[] = [
     // ==========================================
     {
         id: 12,
-        title: "11. Uzak Sunucu (Remote)",
+        title: "11. Remote: GitHub Nedir?",
         type: 'theory',
         content: [
-            "• Git yereldir, GitHub/GitLab ise bu yerel deponun buluttaki kopyasıdır.",
-            "• Takım çalışması ve yedekleme için kullanılır.",
-            "• 'origin' genelde ana uzak sunucunun takma adıdır."
+            "• Git: Bilgisayarınızdaki (yerel) araçtır. GitHub: Projenizin buluttaki Instagram'ıdır.",
+            "• Sosyal Kodlama: Başkalarının kodlarını görebilir, beğenebilir (star) ve kopyalayabilirsiniz (fork).",
+            "• Yedekleme: Bilgisayarınız bozulsa bile kodlarınız 'origin' (köken) sunucusunda güvendedir."
         ]
     },
+
     {
         id: 13,
         title: "12. Push & Pull (Senkronizasyon)",
         type: 'terminal',
         content: [
-            "Kodları buluta gönderme ve alma."
+            "Yerel (Local) ve Uzak (Remote) depo arasındaki veri trafiği."
         ],
         codeLines: [
-            "# Yereldeki commitleri sunucuya gönder",
-            "git push origin main",
+            "# 1. Uzak Sunucuyu Tanımla (Sadece bir kez)",
+            "git remote add origin https://github.com/kullanici/proje.git",
             "",
-            "# Sunucudaki değişiklikleri al",
-            "git pull origin main",
+            "# 2. Gönder: Yereldeki commitleri buluta yükle",
+            "git push -u origin main",
             "",
-            "# Uzak sunucu ekleme (İlk kez)",
-            "git remote add origin https://github.com/..."
+            "# 3. Çek: Arkadaşının attığı değişiklikleri indir",
+            "git pull origin main"
         ],
-        fileName: "remote_sync.sh"
+        fileName: "sync.sh"
     },
     {
         id: 14,
         title: "13. Pull Request (PR) Kültürü",
         type: 'theory',
         content: [
-            "• Kodunuzu 'main' dala doğrudan atmak yerine, inceleme (review) talep edersiniz.",
-            "• Birisi kodunuzu okur, yorum yapar ve onaylar.",
-            "• Bu, 'Code Review' sürecinin kalbidir; kaliteyi artırır."
+            "• Profesyonel dünyada 'main' dala direkt kod atılmaz.",
+            "• PR (İstek): 'Ben bu özelliği yaptım, lütfen inceleyip ana projeye ekler misiniz?' demektir.",
+            "• Code Review: Takım arkadaşlarınızın kodunuzu okuyup hata veya öneri sunduğu aşamadır."
         ]
     },
 
@@ -246,25 +258,147 @@ export const slides: Slide[] = [
     // ==========================================
     {
         id: 15,
-        title: "14. İleri Seviye (Kısa Bakış)",
+        title: "14. Git: Hayat Kurtaran Komutlar",
         type: 'terminal',
         content: [
-            "Git çok derin bir araçtır. İhtiyaç oldukça öğrenilir."
+            "Hata yaptığınızda panik yapmayın. Git'te neredeyse her şeyin geri dönüşü vardır."
         ],
         codeLines: [
-            "# Hatalı değişikliği geri al",
+            "# Yanlışlıkla değiştirdiğin dosyayı eski haline getir",
             "git restore dosya.txt",
             "",
-            "# Son commit'i düzelt",
-            "git commit --amend",
+            "# Son commit mesajını yanlış mı yazdın? Düzelt:",
+            "git commit --amend -m \"Yeni doğru mesaj\"",
             "",
-            "# Commitleri geçici sakla (Stash)",
-            "git stash"
+            "# Acil iş çıktı, değişiklikleri 'cepte' sakla",
+            "git stash       # Sakla",
+            "git stash pop   # Geri getir"
         ],
-        fileName: "advanced.sh"
+        fileName: "panic_button.sh"
+    },
+    {
+        id: 15.1,
+        title: "Kısa Bir Ara",
+        type: 'interactive',
+        content: [],
+        component: "ShortBreak"
+    },
+    {
+        id: 15.2,
+        title: "2. OTURUM",
+        type: 'theory',
+        content: []
     },
     {
         id: 16,
+        title: "Git vs GitHub",
+        type: 'theory',
+        content: [
+            "• Git: Dağıtık versiyon kontrol sistemi (Yerel Zaman Makinesi - Araba).",
+            "• GitHub: Git projelerini depoladığımız uzak sunucu (Bulut Depo - Otopark).",
+            "• Git internet olmadan çalışır; GitHub paylaşım için vardır."
+        ]
+    },
+    {
+        id: 17,
+        title: "Neden GitHub Kullanıyoruz?",
+        type: 'theory',
+        content: [
+            "• Altyapı & Maliyet: Sunucu bakımı, elektrik, yedekleme derdi yok.",
+            "• Güvenlik: Profesyonel güvenlik ekipleri, 2FA, SMS koruması.",
+            "• İşbirliği (Collaboration): Pull Request, Code Review ve Issue takibi.",
+            "• Standartlaşma: Sektörün %90'ı burada.",
+            "• Portfolyo: Yazılımcının yeni CV'si."
+        ]
+    },
+    {
+        id: 18,
+        title: "Sadece GitHub mı? (Alternatifler)",
+        type: 'theory',
+        content: [
+            "• GitLab: DevOps/CI-CD süreçlerinde çok güçlü. Self-hosted imkanı.",
+            "• Bitbucket: Jira/Trello (Atlassian) entegrasyonu. Kurumsal tercih.",
+            "• Mantık aynı: Yerelde Git -> Uzakta Depo."
+        ]
+    },
+    {
+        id: 19,
+        title: "GitHub'ın Süper Güçleri",
+        type: 'theory',
+        content: [
+            "• Issues: Proje ajandası, görev ve hata takibi (Bug/Feature).",
+            "• Pull Request (PR): Kod inceleme, onaylama ve birleştirme süreci.",
+            "• Conflict Resolution: Çakışan kodları arayüzden çözme.",
+            "• Fork & Open Source: Başka projeyi kopyala (Fork) -> Geliştir -> Geri Gönder (PR)."
+        ]
+    },
+    {
+        id: 20,
+        title: "Bir Okul Olarak GitHub",
+        type: 'theory',
+        content: [
+            "• 'Stripe API nasıl kullanılır?' -> Google yerine GitHub'da arat.",
+            "• 'Most Stars' filtresiyle en iyi örnekleri bul.",
+            "• Başkalarının kodu (Best Practices) en iyi öğretmendir."
+        ]
+    },
+    {
+        id: 21,
+        title: "Yeni CV'niz: GitHub Profili",
+        type: 'theory',
+        content: [
+            "• İşe alımlarda diplomalardan önce 'yeşil kutucuklara' (Contribution Graph) bakılıyor.",
+            "• Boş bir profil = Pasif bir yazılımcı.",
+            "• Düzenli commit atmak, istikrarın ve öğrenme azminin kanıtıdır."
+        ]
+    },
+    {
+        id: 22,
+        title: "Special Repository (README)",
+        type: 'theory',
+        content: [
+            "• `kullaniciadi/kullaniciadi` formatında bir repo oluşturun.",
+            "• İçine eklediğiniz `README.md` profilinizin vitrini olur.",
+            "• Kullandığınız teknolojileri, projelerinizi ve istatistiklerinizi sergileyin."
+        ]
+    },
+    {
+        id: 23,
+        title: "IDE ile Git Kullanımı (VS Code)",
+        type: 'terminal',
+        content: [
+            "• Terminal komutlarını bilmek şarttır ama her gün yazmak zorunda değilsiniz.",
+            "• VS Code Source Control paneli hız kazandırır.",
+            "• Görsel Diff: Değişiklikleri yan yana renkli görmek hataları önler.",
+            "• Tek tıkla Stage, Commit ve Sync (Push/Pull)."
+        ],
+        component: "IdeDemo" // Placeholder for visual if needed
+    },
+    {
+        id: 24,
+        title: "Uygulama Zamanı: Beraber Kodlayalım",
+        type: 'interactive',
+        content: [
+            "1. Bu sunumu yaptığımız reposunu forklayacağız ve sonra clone edeceğiz.",
+            "2. Cloneladığımız projede src->participants.ts dosyasına yeni bir katılımcı ekleyeceğiz.",
+            "3. Kendi adınıza bir branch oluşturacağız ve checkout edeceğiz.",
+            "4. Değişiklik yapıp commit atacağız ve sonrasında push edeceğiz.",
+            "5. Push ettiğimizde bu sunumun reposuna gelip pr sekmesinden Pr açacağız ve yaptığımız değişikliği ana koda eklemiş olacağız.",
+            "6. Eğer PR sorunsuzsa, ana koda eklenmiş olacak ve sunumda göreceğiz."
+        ]
+    },
+    {
+        id: 25,
+        title: "Kapanış & Kahoot",
+        type: 'theory',
+        content: [
+            "• Öğrendiklerimizi test edelim: Kahoot Yarışması!",
+            "• Sorular & Cevaplar",
+            "• Teşekkürler."
+        ]
+    },
+    {
+        id: 26,
         title: "Teşekkürler",
         type: 'outro',
         content: []
