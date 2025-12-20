@@ -2,10 +2,10 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
 // https://vite.dev/config/
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   plugins: [react()],
-  base: '/CSC_Git-Github_Sunu/',
+  base: mode === 'production' ? '/CSC_Git-Github_Sunu/' : '/',
   server: {
     host: true
   }
-})
+}))

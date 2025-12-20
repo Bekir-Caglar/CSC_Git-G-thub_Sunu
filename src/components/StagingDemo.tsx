@@ -55,6 +55,9 @@ export const StagingDemo: React.FC = () => {
 
     return (
         <div className="demo-container">
+            <div className="status-message" style={{ textAlign: 'center', marginBottom: '20px', minHeight: '24px' }}>
+                {message}
+            </div>
             <div className="areas-grid">
                 {/* Working Directory */}
                 <div className="area working">
