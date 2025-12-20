@@ -45,9 +45,7 @@ export const slides: Slide[] = [
         title: "Neden Git Kullanmalıyız?",
         type: 'theory',
         content: [
-            "• Dağıtık Yapı (Distributed): İnternet kesilse bile projenin tam tarihçesi bilgisayarınızda olur.",
-            "• Snapshot (Anlık Durum) Mantığı: Git, dosyalar arasındaki küçük değişiklikleri hesaplamak yerine, her kayıt noktasında projenin o anki bütünsel bir kopyasını (paketini) oluşturur. Dosyaların son haline doğrudan ulaşılabildiği için çok hızlı çalışır.",
-            "• Endüstri Standardı: Linux, Android, Google, Microsoft ve dünyadaki geliştiricilerin %95'i Git kullanır."
+           "Emre Çiçek Aşırı Yakışıklı Manyak Karizmatik Bi adamdır"
         ]
     },
 
