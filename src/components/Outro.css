@@ -296,3 +296,45 @@
         font-size: 1.2rem;
     }
 }
+.cert-link-btn {
+    display: inline-block;
+    background: transparent;
+    border: 2px solid #58a6ff;
+    color: #58a6ff;
+    font-family: 'Courier New', monospace;
+    font-size: 1.2rem;
+    padding: 0.8rem 1.6rem;
+    cursor: pointer;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    animation: glow-blue 2s infinite;
+    z-index: 20;
+    pointer-events: auto;
+}
+
+.cert-link-btn:hover {
+    background: #58a6ff;
+    color: #fff;
+    box-shadow: 0 0 20px rgba(88, 166, 255, 0.6);
+    transform: translateY(-2px);
+}
+
+.cert-link-section {
+    z-index: 20;
+    position: relative;
+    pointer-events: auto;
+    margin-bottom: 2rem;
+}
+
+@keyframes glow-blue {
+    0% {
+        box-shadow: 0 0 5px rgba(88, 166, 255, 0.2);
+    }
+    50% {
+        box-shadow: 0 0 15px rgba(88, 166, 255, 0.6);
+    }
+    100% {
+        box-shadow: 0 0 5px rgba(88, 166, 255, 0.2);
+    }
+}
