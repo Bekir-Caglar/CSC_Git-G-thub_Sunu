@@ -72,7 +72,7 @@ export const CertificatePage: React.FC = () => {
                             <div className="cert-border-inner"></div>
 
                             <div className="cert-logo">
-                                <img src="/github_logo.svg" alt="GitHub Logo" width="64" />
+                                <img src={`${import.meta.env.BASE_URL}github_logo.svg`} alt="GitHub Logo" width="64" />
                             </div>
 
                             <div className="cert-header-text">Mastery Certificate</div>
