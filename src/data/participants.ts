@@ -20,8 +20,8 @@ export const participants: Participant[] = [
         github: "Bekir-Caglar"
     },
     {
-        name: "Ali Can",
-        github: "AliCan"
+        name: "Öylesine Birisi",
+        github: "OylesineBiri-61"
     },
 
     // Kendi isminizi buraya ekleyin 👇
