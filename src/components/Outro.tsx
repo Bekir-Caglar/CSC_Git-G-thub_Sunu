@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import QRCode from 'react-qr-code';
 import './Outro.css';
 
@@ -78,6 +79,12 @@ export const Outro: React.FC = () => {
                                 </div>
                             </div>
                         ))}
+                    </div>
+
+                    <div className="cert-link-section" style={{ marginTop: '2rem' }}>
+                        <Link to="/sertifika" className="cert-link-btn">
+                            Sertifika Sayfasına Git →
+                        </Link>
                     </div>
                 </>
             )}
