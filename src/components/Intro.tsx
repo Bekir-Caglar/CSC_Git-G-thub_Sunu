@@ -45,7 +45,7 @@ export const Intro: React.FC<IntroProps> = ({ onStart }) => {
     return (
         <div className="intro-container">
             <div className="club-branding">
-                <img src="/logo.jpg" alt="Bilgisayar Bilimleri Kulübü Logo" className="club-logo" />
+                <img src={`${import.meta.env.BASE_URL}logo.jpg`} alt="Bilgisayar Bilimleri Kulübü Logo" className="club-logo" />
                 <span className="club-name">Bilgisayar Bilimleri Kulübü</span>
             </div>
             <div className="glitch-wrapper">

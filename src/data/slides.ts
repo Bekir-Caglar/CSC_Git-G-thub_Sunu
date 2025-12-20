@@ -32,7 +32,7 @@ export const slides: Slide[] = [
     // ==========================================
     {
         id: 1,
-        title: "1. Versiyon Kontrol Sistemi (VCS)",
+        title: "Versiyon Kontrol Sistemi (VCS)",
         type: 'theory',
         content: [
             "• Projenizi zamana karşı koruyan bir 'Zaman Makinesi'dir. Hata yaptığınızda güvenle geri alabilirsiniz.",
@@ -42,7 +42,7 @@ export const slides: Slide[] = [
     },
     {
         id: 2,
-        title: "2. Neden Git Kullanmalıyız?",
+        title: "Neden Git Kullanmalıyız?",
         type: 'theory',
         content: [
             "• Dağıtık Yapı (Distributed): İnternet kesilse bile projenin tam tarihçesi bilgisayarınızda olur.",
@@ -56,7 +56,7 @@ export const slides: Slide[] = [
     // ==========================================
     {
         id: 3,
-        title: "3. Kimlik Doğrulama (Config)",
+        title: "Kimlik Doğrulama (Config)",
         type: 'terminal',
         content: [
             "Git kurulumundan sonra yapılması gereken İLK işlem kimliğinizi tanıtmaktır.",
@@ -76,7 +76,7 @@ export const slides: Slide[] = [
     },
     {
         id: 4,
-        title: "4. Proje Başlatma (Init & Clone)",
+        title: "Proje Başlatma (Init & Clone)",
         type: 'terminal',
         content: [
             "Bir projeyi Git ile takibe almak için iki yöntem vardır:",
@@ -100,7 +100,7 @@ export const slides: Slide[] = [
     // ==========================================
     {
         id: 5,
-        title: "5. Git Yaşam Döngüsü: 3 Bölge",
+        title: "Git Yaşam Döngüsü: 3 Bölge",
         type: 'terminal',
         content: [
             "Git'te dosyalar 3 aşamadan geçer:",
@@ -130,7 +130,7 @@ export const slides: Slide[] = [
     },
     {
         id: 7,
-        title: "6. Geçmişe Yolculuk (Log)",
+        title: "Geçmişe Yolculuk (Log)",
         type: 'terminal',
         content: [
             "Projede bugüne kadar kimlerin ne yaptığını görmek için log komutları kullanılır."
@@ -152,7 +152,7 @@ export const slides: Slide[] = [
     },
     {
         id: 8,
-        title: "7. Gizli Dosyalar (.gitignore)",
+        title: "Gizli Dosyalar (.gitignore)",
         type: 'theory',
         content: [
             "• Her dosyayı sunucuya göndermek istemeyiz (Şifreler, API Keyler, 500MB'lık node_modules).",
@@ -166,7 +166,7 @@ export const slides: Slide[] = [
     // ==========================================
     {
         id: 9,
-        title: "8. Dallanma (Branching) Mantığı",
+        title: "Dallanma (Branching) Mantığı",
         type: 'theory',
         content: [
             "• Ana proje (main) bozulmasın diye kopyasını alıp orada çalışmaktır.",
@@ -185,7 +185,7 @@ export const slides: Slide[] = [
     },
     {
         id: 11,
-        title: "9. Branch Komutları",
+        title: "Branch Komutları",
         type: 'terminal',
         content: [
             "Dallar arası geçiş ve yönetim komutları."
@@ -212,70 +212,7 @@ export const slides: Slide[] = [
     // ==========================================
     // 5. Uzak Sunucu (Remote / GitHub)
     // ==========================================
-    {
-        id: 12,
-        title: "11. Remote: GitHub Nedir?",
-        type: 'theory',
-        content: [
-            "• Git: Bilgisayarınızdaki (yerel) araçtır. GitHub: Projenizin buluttaki Instagram'ıdır.",
-            "• Sosyal Kodlama: Başkalarının kodlarını görebilir, beğenebilir (star) ve kopyalayabilirsiniz (fork).",
-            "• Yedekleme: Bilgisayarınız bozulsa bile kodlarınız 'origin' (köken) sunucusunda güvendedir."
-        ]
-    },
 
-    {
-        id: 13,
-        title: "12. Push & Pull (Senkronizasyon)",
-        type: 'terminal',
-        content: [
-            "Yerel (Local) ve Uzak (Remote) depo arasındaki veri trafiği."
-        ],
-        codeLines: [
-            "# 1. Uzak Sunucuyu Tanımla (Sadece bir kez)",
-            "git remote add origin https://github.com/kullanici/proje.git",
-            "",
-            "# 2. Gönder: Yereldeki commitleri buluta yükle",
-            "git push -u origin main",
-            "",
-            "# 3. Çek: Arkadaşının attığı değişiklikleri indir",
-            "git pull origin main"
-        ],
-        fileName: "sync.sh"
-    },
-    {
-        id: 14,
-        title: "13. Pull Request (PR) Kültürü",
-        type: 'theory',
-        content: [
-            "• Profesyonel dünyada 'main' dala direkt kod atılmaz.",
-            "• PR (İstek): 'Ben bu özelliği yaptım, lütfen inceleyip ana projeye ekler misiniz?' demektir.",
-            "• Code Review: Takım arkadaşlarınızın kodunuzu okuyup hata veya öneri sunduğu aşamadır."
-        ]
-    },
-
-    // ==========================================
-    // 6. İleri Seviye & Kapanış
-    // ==========================================
-    {
-        id: 15,
-        title: "14. Git: Hayat Kurtaran Komutlar",
-        type: 'terminal',
-        content: [
-            "Hata yaptığınızda panik yapmayın. Git'te neredeyse her şeyin geri dönüşü vardır."
-        ],
-        codeLines: [
-            "# Yanlışlıkla değiştirdiğin dosyayı eski haline getir",
-            "git restore dosya.txt",
-            "",
-            "# Son commit mesajını yanlış mı yazdın? Düzelt:",
-            "git commit --amend -m \"Yeni doğru mesaj\"",
-            "",
-            "# Acil iş çıktı, değişiklikleri 'cepte' sakla",
-            "git stash       # Sakla",
-            "git stash pop   # Geri getir"
-        ],
-        fileName: "panic_button.sh"
-    },
     {
         id: 15.1,
         title: "Kısa Bir Ara",
@@ -288,6 +225,16 @@ export const slides: Slide[] = [
         title: "2. OTURUM",
         type: 'theory',
         content: []
+    },
+    {
+        id: 15.5,
+        title: "Remote: GitHub Nedir?",
+        type: 'theory',
+        content: [
+            "• Git: Bilgisayarınızdaki (yerel) araçtır. GitHub: Projenizin buluttaki Instagram'ıdır.",
+            "• Sosyal Kodlama: Başkalarının kodlarını görebilir, beğenebilir (star) ve kopyalayabilirsiniz (fork).",
+            "• Yedekleme: Bilgisayarınız bozulsa bile kodlarınız 'origin' (köken) sunucusunda güvendedir."
+        ]
     },
     {
         id: 16,
