@@ -23,6 +23,10 @@ export const participants: Participant[] = [
         name: "Timur Hasret Demir",
         github: "DemirDevHD"
     },
+    {
+        name: "Emir Geçit",
+        github: "emirgecit"
+    },
   {
             name: "Emre Çiçek",
         github: "emreciek"
